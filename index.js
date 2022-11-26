@@ -35,4 +35,11 @@ app.delete('/todo/:userId', async function (req, res) {
     await Todo.deleteOne({ user: req.params.userId, todo: req.body.todo });
     res.send('your todo is deleted');
 })
+app.get('/:userId', async function (req, res) {
+    let todo = await Todo.find({ user: req.params.userId });
+    let todos = "";
+    for (let i = 0; i < todo.length; i++) {
+        todos += "-" + todo[i].todo;
+    } res.send('todos are: ' + todos);
+});
 module.exports = app;
